@@ -103,7 +103,7 @@ export default function Intro() {
           href="https://github.com"
           target="_blank"
           aria-label="Mi perfil de GitHub"
-          rel="noopener noreferrer"
+          rel="noopener"
         >
           <FaGithubSquare />
         </a>

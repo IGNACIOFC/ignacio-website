@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import SectionHeading from './section-heading';
 import { BlogPost } from '@/lib/types';
 import { useSectionInView } from "@/lib/hooks";
-import Image from 'next/image';
 
 
 

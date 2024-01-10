@@ -1,7 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import Link from 'next/link'
+import BlogHome from './blogHome';
+import { BlogPost, BlogMeta } from '@/lib/types';
 
 
 export default function Blog() {
@@ -9,50 +10,26 @@ export default function Blog() {
 
   const files = fs.readdirSync(path.join(blogDir));
 
-  const posts =  files.map(filename =>{
-    
+  const posts: BlogPost[] =  files.map(filename => {
     const fileContent = fs.readFileSync(path.join(blogDir, filename), 'utf-8')
-
-
     const {data: frontMatter} = matter(fileContent);
+
+    const meta: BlogMeta = {
+      title: frontMatter.title || '',
+      date: frontMatter.date || new Date(),
+      description: frontMatter.description || '',
+      topic: frontMatter.topic || '',
+      toc: frontMatter.toc || false,
+      tags: frontMatter.tags || [],
+    };
+
     return {
-      meta: frontMatter,
+      meta,
       slug: filename.replace('.mdx', '')
     }
-
   })
+
   return (
-   <>
-    <h1 className='text-3xl font-bold'>
-      My Next.Js Blog Site
-    </h1>
-
-    <section className='py-10'>
-    <h2 className='text-2xl font-blod'>
-      Latest Blogs
-    </h2>
-
-    <div className='py-2'>
-      {posts.map(blog =>(
-        <Link href={'/blog/' + blog.slug} passHref key={blog.slug}>
-          <div className='py-2 flex justify-between align-middle gap-2'>
-            <div>
-              <h3 className='text-lg font-blod'>
-                {blog.meta.title}
-              </h3>
-              <div>
-              
-                <p>{blog.meta.description}</p>
-              </div>
-              <div className='my-auto'>
-                <p>{blog.meta.date}</p>
-              </div>
-             </div> 
-          </div>
-        </Link>
-      ))}
-    </div>
-    </section>
-   </>
+   <BlogHome posts={posts} />
   )
 }

@@ -7,12 +7,13 @@ import { motion } from "framer-motion";
 import SectionHeading from './section-heading';
 import { BlogPost } from '@/lib/types';
 import { useSectionInView } from "@/lib/hooks";
+import Image from 'next/image';
 
 
 
 export default function BlogHome({ posts }: { posts: BlogPost[] }) {
   const { ref } = useSectionInView("Blog");
-
+  console.log(posts[0])
   return (
     <motion.section
       id="blog"
@@ -41,9 +42,12 @@ export default function BlogHome({ posts }: { posts: BlogPost[] }) {
     <div className='py-2'>
       {posts.map(blog =>(
         <Link href={'/blog/' + blog.slug} passHref key={blog.slug}>
-          <div className='py-2 flex justify-between align-middle gap-2'>
+          <div className='group py-2 flex justify-between gap-2'>
+            <div className='flex items-center justify-center pr-6'>
+              <img src={'https://logos-download.com/wp-content/uploads/2019/01/JavaScript_Logo.png'} alt={blog.meta.title} className='rounded-md transition-transform duration-300 group-hover:scale-125' height={50} width={50} />
+            </div>
             <div>
-              <h3 className='text-lg font-blod'>
+              <h3 className='text-lg font-blod group-hover:underline'>
                 {blog.meta.title}
               </h3>
               <div>

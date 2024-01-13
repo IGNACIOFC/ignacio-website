@@ -42,8 +42,8 @@ export default function BlogHome({ posts }: { posts: BlogPost[] }) {
       {posts.map(blog =>(
         <Link href={'/blog/' + blog.slug} passHref key={blog.slug}>
           <div className='group py-2 flex justify-between gap-2'>
-            <div className='flex items-center justify-center pr-6'>
-              <img src={'https://logos-download.com/wp-content/uploads/2019/01/JavaScript_Logo.png'} alt={blog.meta.title} className='rounded-md transition-transform duration-300 group-hover:scale-125' height={50} width={50} />
+            <div className='flex items-center justify-center pr-2'>
+              <img src={'https://logos-download.com/wp-content/uploads/2019/01/JavaScript_Logo.png'} alt={blog.meta.title} className='rounded-md transition-transform duration-300 group-hover:scale-125' height={500} width={50} />
             </div>
             <div>
               <h3 className='text-lg font-blod group-hover:underline'>

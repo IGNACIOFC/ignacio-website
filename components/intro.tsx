@@ -67,7 +67,7 @@ export default function Intro() {
         <span className="font-bold"> software developer</span> with 
         <span className="font-bold"> 4 years</span> of experience, specializing in building 
         <span className="italic">websites and applications</span> with a focus on 
-        <span className="underline">React, particularly Next.js</span>.
+        <span className="underline"> React, particularly Next.js</span>.
       </motion.h1>
 
       <motion.div

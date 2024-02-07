@@ -39,27 +39,27 @@ export default function BlogHome({ posts }: { posts: BlogPost[] }) {
     </h2>
 
     <div className='py-2'>
-      {posts.map(blog =>(
-        <Link href={'/blog/' + blog.slug} passHref key={blog.slug}>
-          <div className='group py-2 flex gap-2'>
-            <div className='flex items-center justify-center pr-6'>
-              <img src={'https://logos-download.com/wp-content/uploads/2019/01/JavaScript_Logo.png'} alt={blog.meta.title} className='rounded-md transition-transform duration-300 group-hover:scale-125' height={50} width={50} />
-            </div>
-            <div>
-              <h3 className='text-lg font-blod group-hover:underline'>
-                {blog.meta.title}
-              </h3>
-              <div>
-              
-                <p>{blog.meta.description}</p>
-              </div>
-              <div className='my-auto'>
-                <p>{blog.meta.date}</p>
-              </div>
-             </div> 
-          </div>
-        </Link>
-      ))}
+  {posts.sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime()).map(blog => (
+  <Link href={'/blog/' + blog.slug} passHref key={blog.slug}>
+    <div className='group py-2 flex gap-2'>
+      <div className='flex items-center justify-center pr-6'>
+        <img src={'https://logos-download.com/wp-content/uploads/2019/01/JavaScript_Logo.png'} alt={blog.meta.title} className='rounded-md transition-transform duration-300 group-hover:scale-125' height={50} width={50} />
+      </div>
+      <div>
+        <h3 className='text-lg font-bold group-hover:underline'>
+          {blog.meta.title}
+        </h3>
+        <div>
+          <p>{blog.meta.description}</p>
+        </div>
+        <div className='my-auto'>
+          <p>{blog.meta.date}</p>
+        </div>
+       </div> 
+    </div>
+  </Link>
+))}
+
     </div>
     </section>
    </motion.section>

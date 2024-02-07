@@ -1,0 +1,78 @@
+---
+title: TDD en React
+date: '2022-07-28'
+description: Explorando TDD en React
+image: https://logos-download.com/wp-content/uploads/2019/01/JavaScript_Logo.png
+topic: me
+toc: true
+tags:
+- me
+---
+
+El Desarrollo Guiado por Pruebas (Test-Driven Development, TDD) es una metodología de desarrollo de software que enfatiza la escritura de pruebas antes de escribir el código de la aplicación en sí. En el contexto de React, TDD implica seguir un ciclo iterativo de desarrollo que consiste en tres fases principales: Red, Green, Refactor.
+
+### 1. Red (Rojo): Escribir una Prueba que Falle
+
+Primero, se escribe una prueba para una nueva funcionalidad antes de implementarla. Esta prueba fallará inicialmente porque la funcionalidad aún no existe. Esto establece una base clara de lo que tu código debe lograr.
+
+Por ejemplo, si estás desarrollando un componente `Button` en React, podrías empezar escribiendo una prueba para verificar si el componente renderiza un botón con un texto específico.
+
+### 2. Green (Verde): Hacer que la Prueba Pase
+
+El siguiente paso es escribir el mínimo código necesario en tu componente React para hacer que la prueba pase. Esto significa implementar la funcionalidad que tu prueba espera.
+
+Siguiendo el ejemplo anterior, desarrollarías el componente `Button` para que pase la prueba, asegurándote de que renderiza un botón con el texto correcto.
+
+### 3. Refactor (Refactorizar): Mejorar el Código
+
+Una vez que la prueba pasa, puedes refactorizar tu código con la seguridad de que la prueba existente te ayudará a asegurarte de que no rompas la funcionalidad previamente implementada. La refactorización puede implicar mejorar la estructura del código, eliminar duplicidades o hacer que el código sea más legible, siempre manteniendo el comportamiento del código.
+
+### Herramientas para TDD en React
+
+Para implementar TDD en React, necesitarás herramientas de pruebas. Algunas de las más populares incluyen:
+
+- **Jest**: Un marco de pruebas de JavaScript que se integra bien con React para pruebas unitarias y de integración.
+- **React Testing Library**: Una librería que facilita las pruebas de componentes React de una manera que se asemeja más a cómo los usuarios interactúan con tu aplicación.
+
+### Ejemplo Básico de TDD en React
+
+Supongamos que quieres desarrollar un componente `Button` que acepta una prop `label`.
+
+1. **Escribir una Prueba (Red)**
+
+   Usando Jest junto con React Testing Library, escribes una prueba para verificar si el componente muestra el texto proporcionado a través de la prop `label`.
+
+   ```javascript
+   import { render, screen } from '@testing-library/react';
+   import Button from './Button';
+
+   test('renders the button with the correct label', () => {
+     render(<Button label="Click Me" />);
+     const buttonElement = screen.getByText(/click me/i);
+     expect(buttonElement).toBeInTheDocument();
+   });
+   ```
+
+2. **Implementar el Componente (Green)**
+
+   Creas el componente `Button` para pasar esta prueba.
+
+   ```javascript
+   const Button = ({ label }) => {
+     return <button>{label}</button>;
+   };
+
+   export default Button;
+   ```
+
+3. **Refactorizar (Refactor)**
+
+   Examinas el código en busca de oportunidades de mejora. En este caso simple, puede que no haya mucho que refactorizar, pero es importante considerar este paso para mantener la calidad del código a medida que tu aplicación crece.
+
+### Ventajas de TDD
+
+- **Mejora la Calidad del Código**: Las pruebas escritas previamente ayudan a asegurar que tu código cumpla con los requisitos antes de que avances.
+- **Refactorización Segura**: Puedes refactorizar el código con confianza, sabiendo que las pruebas existentes ayudarán a identificar si introduces errores.
+- **Documentación Viva**: Las pruebas actúan como documentación que describe cómo se supone que debe comportarse tu código.
+
+TDD puede parecer más lento al principio debido al tiempo adicional que se necesita para escribir pruebas, pero a largo plazo puede ahorrar tiempo al reducir errores y mejorar la calidad del código, facilitando el mantenimiento y la adición de nuevas características.

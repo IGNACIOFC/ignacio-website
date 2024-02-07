@@ -1,0 +1,119 @@
+---
+title: Typescript en React
+date: '2022-07-29'
+description: Guía básica para inicializar un proyecto de React con Typescript.
+image: https://logos-download.com/wp-content/uploads/2019/01/JavaScript_Logo.png
+topic: me
+toc: true
+tags:
+- me
+---
+
+
+La integración de TypeScript en un proyecto de React es una excelente manera de mejorar la calidad del código, proporcionando seguridad de tipos estáticos para ayudar a detectar errores en tiempo de compilación antes de que se conviertan en problemas en tiempo de ejecución. Aquí hay una guía básica para comenzar con TypeScript en React.
+
+### 1. Crear un Nuevo Proyecto de React con TypeScript
+
+Puedes iniciar un nuevo proyecto con TypeScript usando Create React App, que configura todo por ti.
+
+```bash
+npx create-react-app my-app --template typescript
+```
+
+O, si ya tienes un proyecto de React, puedes agregar TypeScript:
+
+```bash
+npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+```
+
+### 2. Entender los Archivos TypeScript en React
+
+- **Archivos `.tsx` vs. `.ts`**: Usa `.tsx` para archivos que contienen JSX y `.ts` para archivos que solo contienen código TypeScript.
+- **Tipos de Propiedades de Componentes**: Define las props y el estado de tu componente usando interfaces o tipos.
+
+### 3. Definir Props y Estado
+
+Para definir props y estado, puedes usar interfaces o tipos. Por ejemplo, para un componente `Button`:
+
+```tsx
+interface ButtonProps {
+  label: string;
+  onClick: () => void; // función sin parámetros y sin retorno
+}
+
+const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
+  return <button onClick={onClick}>{label}</button>;
+};
+```
+
+Para el estado, puedes usar `useState` con tipos:
+
+```tsx
+const [isOpen, setIsOpen] = useState<boolean>(false);
+```
+
+### 4. Usar TypeScript con Hooks de React
+
+TypeScript puede mejorar el uso de hooks, proporcionando tipos para `useState`, `useContext`, `useReducer`, y más.
+
+```tsx
+const [count, setCount] = useState<number>(0);
+```
+
+Para `useContext`, primero define el contexto y el proveedor:
+
+```tsx
+interface AppContextInterface {
+  name: string;
+  age: number;
+}
+
+const AppContext = React.createContext<AppContextInterface | null>(null);
+```
+
+### 5. Tipos para Eventos
+
+Cuando manejas eventos, como clicks o cambios, puedes especificar el tipo de evento para obtener asistencia de tipo con los eventos de React:
+
+```tsx
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  console.log(event.currentTarget.value);
+};
+
+const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  // manejar click
+};
+```
+
+### 6. Componentes Genéricos y Reutilizables
+
+TypeScript te permite crear componentes genéricos que pueden trabajar con varios tipos:
+
+```tsx
+interface ListProps<T> {
+  items: T[];
+  renderItem: (item: T) => React.ReactNode;
+}
+
+function List<T>({ items, renderItem }: ListProps<T>) {
+  return <ul>{items.map(renderItem)}</ul>;
+}
+```
+
+### 7. Trabajar con Tipos Externos
+
+Para paquetes npm que no están escritos en TypeScript, puedes necesitar instalar sus definiciones de tipos:
+
+```bash
+npm install @types/react-router-dom
+```
+
+Si un paquete no tiene tipos disponibles, puedes declarar un módulo tú mismo:
+
+```tsx
+declare module 'nombre-del-modulo';
+```
+
+### Conclusión
+
+El uso de TypeScript en proyectos de React no solo mejora la calidad del código y la experiencia del desarrollador sino que también facilita la mantenimiento y escalabilidad de tu aplicación. Aunque esta guía cubre lo básico, TypeScript tiene muchas características avanzadas que pueden aprovecharse para escribir código más seguro y eficiente. La clave es empezar con los fundamentos y luego profundizar en características más avanzadas a medida que te familiarizas con TypeScript.
